@@ -1,3 +1,5 @@
+import Tool.IOTool;
+import Tool.WinTool;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,7 +17,7 @@ import java.util.Scanner;
 
 public class WinMain extends Application {
     // 使用工具
-    private final Tools tools = new Tools();
+    private final WinTool tools = new WinTool();
     private final ColorManage colorManage = new ColorManage();
 
     // 通用函数
@@ -56,9 +58,9 @@ public class WinMain extends Application {
 
         Menu fileMenu = new Menu("文件");
         MenuItem input = new MenuItem("导入");
-        input.setOnAction(actionEvent -> new IOControl().input(confirm_num, unknown_num));
+        input.setOnAction(actionEvent -> new IOTool().input(confirm_num, unknown_num));
         MenuItem output = new MenuItem("导出");
-        output.setOnAction(actionEvent -> new IOControl().output(confirm_num, unknown_num));
+        output.setOnAction(actionEvent -> new IOTool().output(confirm_num, unknown_num));
         fileMenu.getItems().addAll(input, output);
 
         Menu setMenu = new Menu("设置");

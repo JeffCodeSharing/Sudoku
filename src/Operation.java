@@ -1,10 +1,11 @@
+import Tool.WinTool;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import java.util.List;
 
 public class Operation {
-    private final Tools tools = new Tools();
+    private final WinTool tools = new WinTool();
     public void run(List<List<Label>> confirm_label, List<List<Label>> unknown_label,
                     String[][] confirm_list, String[][] unknown_list) {
         // 一开始的设置

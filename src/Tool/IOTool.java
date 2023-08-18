@@ -1,3 +1,5 @@
+package Tool;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
@@ -8,12 +10,12 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.Scanner;
 
-public class IOControl {
+public class IOTool {
     // 全局工具
     private final FileChooser fileChooser = new FileChooser();
-    private final Tools tools = new Tools();
+    private final WinTool tools = new WinTool();
 
-    public IOControl() {
+    public IOTool() {
         this.fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sudoku Source File (*.sudoku)", "*.sudoku"));
     }
 

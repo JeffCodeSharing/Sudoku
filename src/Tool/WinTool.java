@@ -1,3 +1,5 @@
+package Tool;
+
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -7,7 +9,7 @@ import javafx.scene.text.Font;
 
 import java.util.Optional;
 
-public class Tools {
+public class WinTool {
     public Line CreateLine(int x, int y, int x1, int y1, Paint fill) {
         Line line = new Line();
         line.setStartX(x);

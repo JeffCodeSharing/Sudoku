@@ -1,3 +1,4 @@
+import Tool.WinTool;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class ColorManage extends Application {
-    private final Tools tools = new Tools();
+    private final WinTool tools = new WinTool();
     private boolean is_save = false;
 
     @Override
