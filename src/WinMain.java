@@ -16,7 +16,7 @@ import java.util.List;
 public class WinMain extends Application {
     private final List<List<Label>> confirm_num = new ArrayList<>();
     private final List<List<Label>> unknown_num = new ArrayList<>();
-    private final Label[] change_label = new Label[2];
+    private Label[] change_label = new Label[2];
     
     @Override
     public void start(Stage stage) {
@@ -146,24 +146,26 @@ public class WinMain extends Application {
         } catch (Exception ignored) {}
     }
 
-    private String[][] get_label_text(List<List<Label>> label_list) {
-        String[][] list = new String[9][9];
+    private String[][] get_label_text(List<List<Label>> list) {
+        String[][] return_array = new String[9][9];
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
-                String str = label_list.get(i).get(j).getText();
-                if (str == null) str = "";
+                String str = list.get(i).get(j).getText();
+                if (str == null) {
+                    str = "";
+                }
                 str = str.replace("\n", "");
-                list[i][j] = str;
+                return_array[i][j] = str;
             }
         }
-        return list;
+        return return_array;
     }
 
     private void update_change_label(int column_num, int row_num) {
         Label confirm = confirm_num.get(column_num).get(row_num);
         Label unknown = unknown_num.get(column_num).get(row_num);
 
-        System.arraycopy(new Label[]{confirm, unknown}, 0, change_label, 0, 2);
+        change_label = new Label[]{confirm, unknown};
     }
 
     private void clean_sudoku() {
