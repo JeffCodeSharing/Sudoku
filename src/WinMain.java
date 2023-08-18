@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WinMain extends Application {
-    // 使用工具
-    private final WinTool tools = new WinTool();
     private final ColorManage colorManage = new ColorManage();
 
     // 通用函数
@@ -36,13 +34,13 @@ public class WinMain extends Application {
             int type = (i % 3 == 0) ? 0 : 1;
             Paint fill = colorManage.getColor(system_data[type]);
             group.getChildren().addAll(
-                    tools.CreateLine(50*(i+1), 50, 50*(i+1), 500, fill),
-                    tools.CreateLine(50, 50*(i+1), 500, 50*(i+1), fill)
+                    WinTool.CreateLine(50*(i+1), 50, 50*(i+1), 500, fill),
+                    WinTool.CreateLine(50, 50*(i+1), 500, 50*(i+1), fill)
             );
         }
 
         // 批注多选框
-        CheckBox checkBox = tools.CreateCheckBox(500, 500, 100, 50, 20, "批注");
+        CheckBox checkBox = WinTool.CreateCheckBox(500, 500, 100, 50, 20, "批注");
         checkBox.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
         group.getChildren().add(checkBox);
 
@@ -72,13 +70,13 @@ public class WinMain extends Application {
         group.getChildren().add(menuBar);
 
         // 清空按钮
-        Button button_clear = tools.CreateButton(530, 380, 110, 50, 20, "清空数独");
+        Button button_clear = WinTool.CreateButton(530, 380, 110, 50, 20, "清空数独");
         button_clear.setOnAction(actionEvent -> clean_sudoku());
         button_clear.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
         group.getChildren().add(button_clear);
 
         // 自动运算按钮
-        Button button_run = tools.CreateButton(530, 450, 110, 50, 20, "自动运算");
+        Button button_run = WinTool.CreateButton(530, 450, 110, 50, 20, "自动运算");
         button_run.setOnAction(actionEvent -> new Operation().run(confirm_num, unknown_num, get_labelText(confirm_num), get_labelText(unknown_num)));
         button_run.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
         group.getChildren().add(button_run);
@@ -86,7 +84,7 @@ public class WinMain extends Application {
         // 按钮数字
         for (int i=1; i <= 9; i++) {
             final int j = i;
-            Button button = tools.CreateButton(50*i, 510, 40, 40, 18, String.valueOf(i));
+            Button button = WinTool.CreateButton(50*i, 510, 40, 40, 18, String.valueOf(i));
             button.setOnAction(actionEvent -> label_add_num(String.valueOf(j), checkBox.isSelected()));
             button.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
             group.getChildren().add(button);
@@ -97,8 +95,8 @@ public class WinMain extends Application {
             List<Label> list_confirm = new ArrayList<>();
             List<Label> list_unknown = new ArrayList<>();
             for (int j = 1; j <= 9; j++) {
-                Label label1 = tools.CreateLabel(j*50, i*50, 50, 50, 25, Color.BLACK, "", true);
-                Label label2 = tools.CreateLabel(j*50, i*50, 50, 50, 16, Color.BLUE, "", true);
+                Label label1 = WinTool.CreateLabel(j*50, i*50, 50, 50, 25, Color.BLACK, "", true);
+                Label label2 = WinTool.CreateLabel(j*50, i*50, 50, 50, 16, Color.BLUE, "", true);
                 // 用于检测按键按下并执行
                 final int column_final = i - 1;
                 final int row_final = j - 1;
@@ -167,7 +165,7 @@ public class WinMain extends Application {
             str2 = sc.nextLine();
             str3 = sc.nextLine();
         } catch (Exception e) {
-            tools.CreateAlert(Alert.AlertType.ERROR, "错误", "无法读取系统文件", "");
+            WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "无法读取系统文件", "");
             System.exit(1);
         }
         return new String[]{str1, str2, str3};

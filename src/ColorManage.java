@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class ColorManage extends Application {
-    private final WinTool tools = new WinTool();
     private boolean is_save = false;
 
     @Override
@@ -23,20 +22,20 @@ public class ColorManage extends Application {
         
         // 标题
         group.getChildren().addAll(
-                tools.CreateLabel(0, 0, 80, 25, 20, Color.BLACK, "颜色设置", false),
-                tools.CreateLabel(0, 40, 120, 20, 16, Color.BLACK, "数独线条-宫格", false),
-                tools.CreateLabel(0, 100, 120, 20, 16, Color.BLACK, "数独线条-普通", false),
-                tools.CreateLabel(0, 150, 90, 20, 16, Color.BLACK, "菜单颜色", false));
+                WinTool.CreateLabel(0, 0, 80, 25, 20, Color.BLACK, "颜色设置", false),
+                WinTool.CreateLabel(0, 40, 120, 20, 16, Color.BLACK, "数独线条-宫格", false),
+                WinTool.CreateLabel(0, 100, 120, 20, 16, Color.BLACK, "数独线条-普通", false),
+                WinTool.CreateLabel(0, 150, 90, 20, 16, Color.BLACK, "菜单颜色", false));
 
         // 列表
         String[] strings = getStrings();
-        ComboBox<String> comboBox1 = tools.CreateComboBox(10, 70, 150, 25, 5, strings);
-        ComboBox<String> comboBox2 = tools.CreateComboBox(10, 120, 150, 25, 5, strings);
-        ComboBox<String> comboBox3 = tools.CreateComboBox(10, 170, 150, 25, 5, strings);
+        ComboBox<String> comboBox1 = WinTool.CreateComboBox(10, 70, 150, 25, 5, strings);
+        ComboBox<String> comboBox2 = WinTool.CreateComboBox(10, 120, 150, 25, 5, strings);
+        ComboBox<String> comboBox3 = WinTool.CreateComboBox(10, 170, 150, 25, 5, strings);
         group.getChildren().addAll(comboBox1, comboBox2, comboBox3);
 
         // 确定按钮
-        Button confirm_button = tools.CreateButton(160, 300, 60, 30, 14, "确定");
+        Button confirm_button = WinTool.CreateButton(160, 300, 60, 30, 14, "确定");
         confirm_button.setOnAction(actionEvent -> setColor(comboBox1, comboBox2, comboBox3));
         group.getChildren().add(confirm_button);
 
@@ -55,7 +54,7 @@ public class ColorManage extends Application {
         String[] system_data = read_systemFile();
 
         if (!is_save) {
-            Optional<ButtonType> type = tools.CreateAlert(Alert.AlertType.CONFIRMATION, "更改尚未保存", "更改尚未保存", "是否保存？");
+            Optional<ButtonType> type = WinTool.CreateAlert(Alert.AlertType.CONFIRMATION, "更改尚未保存", "更改尚未保存", "是否保存？");
             if (type.get().getButtonData().equals(ButtonBar.ButtonData.OK_DONE)) {
                 try {
                     for (int i=0; i<3; i++) {
@@ -68,7 +67,7 @@ public class ColorManage extends Application {
                     }
                     write_file(system_data);
                 } catch (Exception e) {
-                    tools.CreateAlert(Alert.AlertType.ERROR, "错误", "写入文件错误", "");
+                    WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "写入文件错误", "");
                 }
             }
         }
@@ -94,7 +93,7 @@ public class ColorManage extends Application {
         try {
             write_file(system_data);
         } catch (Exception e) {
-            tools.CreateAlert(Alert.AlertType.INFORMATION, "错误", "文件无法写入", "");
+            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "错误", "文件无法写入", "");
         }
     }
 
@@ -106,7 +105,7 @@ public class ColorManage extends Application {
         fileWriter.close();
 
         // 完成
-        tools.CreateAlert(Alert.AlertType.INFORMATION, "成功", "已成功更改", "重启后生效");
+        WinTool.CreateAlert(Alert.AlertType.INFORMATION, "成功", "已成功更改", "重启后生效");
         is_save = true;
     }
 
@@ -129,7 +128,7 @@ public class ColorManage extends Application {
             str2 = sc.nextLine();
             str3 = sc.nextLine();
         } catch (Exception e) {
-            tools.CreateAlert(Alert.AlertType.ERROR, "失败", "系统文件损坏", "");
+            WinTool.CreateAlert(Alert.AlertType.ERROR, "失败", "系统文件损坏", "");
         }
         return new String[]{str1, str2, str3};
     }

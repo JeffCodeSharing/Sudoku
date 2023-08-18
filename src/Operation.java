@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import java.util.List;
 
 public class Operation {
-    private final WinTool tools = new WinTool();
     public void run(List<List<Label>> confirm_label, List<List<Label>> unknown_label,
                     String[][] confirm_list, String[][] unknown_list) {
         // 一开始的设置
@@ -290,7 +289,10 @@ public class Operation {
         }
 
         // Alert提醒
-        if (type) tools.CreateAlert(Alert.AlertType.INFORMATION, "完成", "程序已经完成了！", "要不再让来试一次");
-        else tools.CreateAlert(Alert.AlertType.INFORMATION, "程序已无法推理", "OOO, 我们已经尽力了", "祝你好运");
+        if (type) {
+            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "完成", "程序已经完成了！", "要不再让来试一次");
+        } else {
+            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "程序已无法推理", "OOO, 我们已经尽力了", "祝你好运");
+        }
     }
 }

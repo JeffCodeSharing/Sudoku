@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import java.util.Optional;
 
 public class WinTool {
-    public Line CreateLine(int x, int y, int x1, int y1, Paint fill) {
+    public static Line CreateLine(int x, int y, int x1, int y1, Paint fill) {
         Line line = new Line();
         line.setStartX(x);
         line.setStartY(y);
@@ -20,7 +20,7 @@ public class WinTool {
         return line;
     }
 
-    public Button CreateButton(int x, int y, int width, int height, int font_size, String text) {
+    public static Button CreateButton(int x, int y, int width, int height, int font_size, String text) {
         Button button = new Button();
         button.setText(text);
         button.setLayoutX(x);
@@ -33,7 +33,7 @@ public class WinTool {
         return button;
     }
 
-    public Label CreateLabel(int x, int y, int width, int height, int font_size, Paint fill, String text, boolean is_centre) {
+    public static Label CreateLabel(int x, int y, int width, int height, int font_size, Paint fill, String text, boolean is_centre) {
         Label label = new Label();
         label.setText(text);
         label.setLayoutX(x);
@@ -50,7 +50,7 @@ public class WinTool {
         return label;
     }
 
-    public CheckBox CreateCheckBox(int x, int y, int width, int height, int font_size, String text) {
+    public static CheckBox CreateCheckBox(int x, int y, int width, int height, int font_size, String text) {
         CheckBox checkBox = new CheckBox();
         checkBox.setText(text);
         checkBox.setLayoutX(x);
@@ -63,7 +63,7 @@ public class WinTool {
         return checkBox;
     }
 
-    public ComboBox<String> CreateComboBox(int x, int y, int width, int height, int row_count, String... args) {
+    public static ComboBox<String> CreateComboBox(int x, int y, int width, int height, int row_count, String... args) {
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setLayoutX(x);
         comboBox.setLayoutY(y);
@@ -77,7 +77,7 @@ public class WinTool {
         return comboBox;
     }
 
-    public Optional<ButtonType> CreateAlert(Alert.AlertType type, String title, String header_text, String content_text) {
+    public static Optional<ButtonType> CreateAlert(Alert.AlertType type, String title, String header_text, String content_text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header_text);
