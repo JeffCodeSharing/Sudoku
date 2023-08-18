@@ -117,14 +117,19 @@ public class WinMain extends Application {
 
     private void add_label_num(String add_num, boolean is_unknown) {
         try {
-            String unknownNum = change_label[1].getText();
-            String addStr = unknownNum.replace(add_num, "").replaceAll("\n", "");
+            String unknown_num = change_label[1].getText();
 
-            if (is_unknown) {
+            if (is_unknown) {     // 是批注状态
                 change_label[0].setText("");
 
                 // 排序数字
-                char[] numChars = addStr.toCharArray();
+                String add_str;
+                if (unknown_num.contains(add_num)) {
+                    add_str = unknown_num.replace(add_num, "").replace("\n", "");
+                } else {
+                    add_str = unknown_num + add_num;
+                }
+                char[] numChars = add_str.toCharArray();
                 Arrays.sort(numChars);
 
                 StringBuilder builder = new StringBuilder(new String(numChars));
@@ -133,7 +138,7 @@ public class WinMain extends Application {
                 }
 
                 change_label[1].setText(builder.toString());
-            } else {
+            } else {      // 是确定状态
                 change_label[1].setText("");
                 change_label[0].setText(add_num);
             }
