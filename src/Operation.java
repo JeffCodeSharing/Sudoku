@@ -22,7 +22,7 @@ public class Operation {
             // 刷新
             is_change = false;
 
-            // 第一种推理方式
+            // 第一种推理方式：整合，如果unknown_list中有项是只剩一个的，移交到confirm_list中
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
                 for (int j=0; j<9; j++) {
@@ -44,7 +44,6 @@ public class Operation {
             // 判断行
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
-                // 判断
                 for (int j=1; j <= 9; j++) {
                     boolean is_first = false, is_second = false;
                     String only_num = "";
