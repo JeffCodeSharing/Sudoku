@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WinMain extends Application {
-    private final String[] system_data = read_systemFile();
     private final List<List<Label>> confirm_num = new ArrayList<>();
     private final List<List<Label>> unknown_num = new ArrayList<>();
     private final Label[] change_label = new Label[2];
@@ -38,7 +37,6 @@ public class WinMain extends Application {
 
         // 批注多选框
         CheckBox checkBox = WinTool.CreateCheckBox(500, 500, 100, 50, 20, "批注");
-        checkBox.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
         group.getChildren().add(checkBox);
 
         // 菜单
@@ -63,21 +61,18 @@ public class WinMain extends Application {
         // 清空按钮
         Button button_clear = WinTool.CreateButton(530, 380, 110, 50, 20, "清空数独");
         button_clear.setOnAction(actionEvent -> clean_sudoku());
-        button_clear.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
         group.getChildren().add(button_clear);
 
         // 自动运算按钮
         Button button_run = WinTool.CreateButton(530, 450, 110, 50, 20, "自动运算");
-        button_run.setOnAction(actionEvent -> new Operation().run(confirm_num, unknown_num, get_labelText(confirm_num), get_labelText(unknown_num)));
-        button_run.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
+        button_run.setOnAction(actionEvent -> new Operation().run(confirm_num, unknown_num, get_label_text(confirm_num), get_label_text(unknown_num)));
         group.getChildren().add(button_run);
 
         // 按钮数字
         for (int i=1; i <= 9; i++) {
             final int j = i;
             Button button = WinTool.CreateButton(50*i, 510, 40, 40, 18, String.valueOf(i));
-            button.setOnAction(actionEvent -> label_add_num(String.valueOf(j), checkBox.isSelected()));
-            button.setOnKeyPressed(keyEvent -> keyBoardListener(keyEvent.getCode().getName(), checkBox.isSelected()));
+            button.setOnAction(actionEvent -> add_label_num(String.valueOf(j), checkBox.isSelected()));
             group.getChildren().add(button);
         }
 
@@ -86,26 +81,31 @@ public class WinMain extends Application {
             List<Label> list_confirm = new ArrayList<>();
             List<Label> list_unknown = new ArrayList<>();
             for (int j = 1; j <= 9; j++) {
-                Label label1 = WinTool.CreateLabel(j*50, i*50, 50, 50, 25, Color.BLACK, "", true);
-                Label label2 = WinTool.CreateLabel(j*50, i*50, 50, 50, 16, Color.BLUE, "", true);
+                Label confirm_label = WinTool.CreateLabel(j*50, i*50, 50, 50, 25, Color.BLACK, "", true);
+                Label unknown_label = WinTool.CreateLabel(j*50, i*50, 50, 50, 16, Color.BLUE, "", true);
                 // 用于检测按键按下并执行
-                final int column_final = i - 1;
-                final int row_final = j - 1;
-                label2.setOnMousePressed(mouseEvent -> {
-                    Label confirm = confirm_num.get(column_final).get(row_final);
-                    Label unknown = unknown_num.get(column_final).get(row_final);
+                final int column_num = i - 1;
+                final int row_num = j - 1;
 
-                    System.arraycopy(new Label[]{confirm, unknown}, 0, change_label, 0, 2);
-                });
+                unknown_label.setOnMousePressed(mouseEvent -> update_change_label(column_num, row_num));
+                confirm_label.setOnMousePressed(mouseEvent -> update_change_label(column_num, row_num));
 
-                group.getChildren().addAll(label1, label2);
-                list_confirm.add(label1);
-                list_unknown.add(label2);
+                group.getChildren().addAll(confirm_label, unknown_label);
+                list_confirm.add(confirm_label);
+                list_unknown.add(unknown_label);
             }
             confirm_num.add(list_confirm);
             unknown_num.add(list_unknown);
         }
-        
+
+        // add global keyboard listener
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            String type = event.getCode().getName();
+            switch (type) {
+                case "1", "2", "3", "4", "5", "6", "7", "8", "9" -> add_label_num(type, checkBox.isSelected());
+            }
+        });
+
         stage.setTitle("数独");
         stage.setScene(scene);
         stage.setWidth(700);
@@ -115,45 +115,32 @@ public class WinMain extends Application {
         stage.show();
     }
 
-    void label_add_num(String add_num, boolean is_unknown) {
+    private void add_label_num(String add_num, boolean is_unknown) {
         try {
-            String unknown_num = change_label[1].getText();
+            String unknownNum = change_label[1].getText();
+            String addStr = unknownNum.replace(add_num, "").replaceAll("\n", "");
+
             if (is_unknown) {
                 change_label[0].setText("");
 
-                String add_str = unknown_num.contains(add_num) ?
-                        unknown_num.replace(add_num, "") : unknown_num + add_num;
-                add_str = add_str.replace("\n", "");
+                // 排序数字
+                char[] numChars = addStr.toCharArray();
+                Arrays.sort(numChars);
 
-                // 排序
-                String[] str = add_str.split("");
-                int[] num = new int[str.length];
-                for (int i=0; i < num.length; i++) {
-                    num[i] = Integer.parseInt(str[i]);
+                StringBuilder builder = new StringBuilder(new String(numChars));
+                if (builder.length() > 5) {
+                    builder.insert(5, "\n");
                 }
-                Arrays.sort(num);
 
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i:num) stringBuilder.append(i);
-                add_str = stringBuilder.toString();
-
-                if (add_str.length() > 5) add_str = add_str.substring(0, 5) + "\n" + add_str.substring(5);
-                change_label[1].setText(add_str);
+                change_label[1].setText(builder.toString());
             } else {
                 change_label[1].setText("");
                 change_label[0].setText(add_num);
             }
         } catch (Exception ignored) {}
     }
-    
-    private String[] read_systemFile() {
-        String str1 = "DARKBLUE";
-        String str2 = "DARKGRAY";
-        String str3 = "LIGHTCYAN";
-        return new String[]{str1, str2, str3};
-    }
 
-    String[][] get_labelText(List<List<Label>> label_list) {
+    private String[][] get_label_text(List<List<Label>> label_list) {
         String[][] list = new String[9][9];
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
@@ -166,18 +153,19 @@ public class WinMain extends Application {
         return list;
     }
 
-    void clean_sudoku() {
+    private void update_change_label(int column_num, int row_num) {
+        Label confirm = confirm_num.get(column_num).get(row_num);
+        Label unknown = unknown_num.get(column_num).get(row_num);
+
+        System.arraycopy(new Label[]{confirm, unknown}, 0, change_label, 0, 2);
+    }
+
+    private void clean_sudoku() {
         for (int i=0; i<9; i++) {
             for (int j=0; j<9; j++) {
                 confirm_num.get(i).get(j).setText("");
                 unknown_num.get(i).get(j).setText("");
             }
-        }
-    }
-
-    void keyBoardListener(String type, boolean is_unknown) {
-        switch (type) {
-            case "1", "2", "3", "4", "5", "6", "7", "8", "9" -> label_add_num(type, is_unknown);
         }
     }
 
