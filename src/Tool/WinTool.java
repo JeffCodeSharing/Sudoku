@@ -7,8 +7,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 
-import java.util.Optional;
-
 public class WinTool {
     public static Line CreateLine(int x, int y, int x1, int y1, Paint fill) {
         Line line = new Line();
@@ -25,28 +23,25 @@ public class WinTool {
         button.setText(text);
         button.setLayoutX(x);
         button.setLayoutY(y);
-        button.setMinWidth(width);
-        button.setMaxWidth(width);
-        button.setMinHeight(height);
-        button.setMaxHeight(height);
-        button.setFont(Font.font("Arial", font_size));
+        button.setMaxSize(width, height);
+        button.setMinSize(width, height);
+        button.setFont(Font.font(font_size));
         return button;
     }
 
     public static Label CreateLabel(int x, int y, int width, int height, int font_size, Paint fill, String text, boolean is_centre) {
-        Label label = new Label();
+        Label label = new Label(text);
         label.setText(text);
         label.setLayoutX(x);
         label.setLayoutY(y);
-        label.setMinWidth(width);
-        label.setMaxWidth(width);
-        label.setMinHeight(height);
-        label.setMaxHeight(height);
+        label.setMaxSize(width, height);
+        label.setMinSize(width, height);
         label.setTextFill(fill);
-        label.setFont(Font.font("Arial", font_size));
-        label.setText(text);
+        label.setFont(Font.font(font_size));
 
-        if (is_centre) label.setAlignment(Pos.CENTER);
+        if (is_centre) {
+            label.setAlignment(Pos.CENTER);
+        }
         return label;
     }
 
@@ -55,33 +50,17 @@ public class WinTool {
         checkBox.setText(text);
         checkBox.setLayoutX(x);
         checkBox.setLayoutY(y);
-        checkBox.setMinWidth(width);
-        checkBox.setMaxWidth(width);
-        checkBox.setMinHeight(height);
-        checkBox.setMaxHeight(height);
-        checkBox.setFont(Font.font("Arial", font_size));
+        checkBox.setMaxSize(width, height);
+        checkBox.setMinSize(width, height);
+        checkBox.setFont(Font.font(font_size));
         return checkBox;
     }
 
-    public static ComboBox<String> CreateComboBox(int x, int y, int width, int height, int row_count, String... args) {
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.setLayoutX(x);
-        comboBox.setLayoutY(y);
-        comboBox.setMinWidth(width);
-        comboBox.setMaxWidth(width);
-        comboBox.setMinHeight(height);
-        comboBox.setMaxHeight(height);
-        comboBox.setItems(FXCollections.observableArrayList(args));
-        comboBox.setEditable(false);
-        comboBox.setVisibleRowCount(row_count);
-        return comboBox;
-    }
-
-    public static Optional<ButtonType> CreateAlert(Alert.AlertType type, String title, String header_text, String content_text) {
+    public static void CreateAlert(Alert.AlertType type, String title, String header_text, String content_text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header_text);
         alert.setContentText(content_text);
-        return alert.showAndWait();
+        alert.showAndWait();
     }
 }

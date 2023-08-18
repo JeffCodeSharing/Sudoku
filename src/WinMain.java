@@ -9,16 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class WinMain extends Application {
-    private final ColorManage colorManage = new ColorManage();
-
-    // 通用函数
     private final String[] system_data = read_systemFile();
     private final List<List<Label>> confirm_num = new ArrayList<>();
     private final List<List<Label>> unknown_num = new ArrayList<>();
@@ -31,8 +26,10 @@ public class WinMain extends Application {
 
         // 绘制线条
         for (int i = 0; i <= 9; i++) {
-            int type = (i % 3 == 0) ? 0 : 1;
-            Paint fill = colorManage.getColor(system_data[type]);
+            // 能被3整除的是宫线，不被整除的是普通格线
+            Paint fill = (i % 3 == 0) ? Color.DARKBLUE : Color.DARKGREY;
+
+            // 添加横线和竖线
             group.getChildren().addAll(
                     WinTool.CreateLine(50*(i+1), 50, 50*(i+1), 500, fill),
                     WinTool.CreateLine(50, 50*(i+1), 500, 50*(i+1), fill)
@@ -46,7 +43,6 @@ public class WinMain extends Application {
 
         // 菜单
         MenuBar menuBar = new MenuBar();
-        menuBar.setBackground(Background.fill(colorManage.getColor(system_data[2])));
         menuBar.setLayoutX(0);
         menuBar.setLayoutY(0);
         menuBar.setMinWidth(700);
@@ -56,17 +52,12 @@ public class WinMain extends Application {
 
         Menu fileMenu = new Menu("文件");
         MenuItem input = new MenuItem("导入");
-        input.setOnAction(actionEvent -> new IOTool().input(confirm_num, unknown_num));
+        input.setOnAction(actionEvent -> IOTool.input(confirm_num, unknown_num));
         MenuItem output = new MenuItem("导出");
-        output.setOnAction(actionEvent -> new IOTool().output(confirm_num, unknown_num));
+        output.setOnAction(actionEvent -> IOTool.output(confirm_num, unknown_num));
         fileMenu.getItems().addAll(input, output);
-
-        Menu setMenu = new Menu("设置");
-        MenuItem color_settings = new MenuItem("颜色设置");
-        color_settings.setOnAction(actionEvent -> new ColorManage().start(new Stage()));
-        setMenu.getItems().addAll(color_settings);
         
-        menuBar.getMenus().addAll(fileMenu, setMenu);
+        menuBar.getMenus().addAll(fileMenu);
         group.getChildren().add(menuBar);
 
         // 清空按钮
@@ -155,19 +146,10 @@ public class WinMain extends Application {
         } catch (Exception ignored) {}
     }
     
-    String[] read_systemFile() {
+    private String[] read_systemFile() {
         String str1 = "DARKBLUE";
         String str2 = "DARKGRAY";
         String str3 = "LIGHTCYAN";
-        try {
-            Scanner sc = new Scanner(new File(System.getProperty("user.dir") + "/data"));
-            str1 = sc.nextLine();
-            str2 = sc.nextLine();
-            str3 = sc.nextLine();
-        } catch (Exception e) {
-            WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "无法读取系统文件", "");
-            System.exit(1);
-        }
         return new String[]{str1, str2, str3};
     }
 
