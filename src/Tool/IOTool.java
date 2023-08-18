@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class IOTool {
     // 全局工具
     private final FileChooser fileChooser = new FileChooser();
-    private final WinTool tools = new WinTool();
 
     public IOTool() {
         this.fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sudoku Source File (*.sudoku)", "*.sudoku"));
@@ -41,7 +40,7 @@ public class IOTool {
                 }
             }
         } catch (Exception e) {
-            this.tools.CreateAlert(Alert.AlertType.ERROR, "错误", "文件损坏", "");
+            WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "文件损坏", "");
         }
     }
 
@@ -69,7 +68,7 @@ public class IOTool {
                 fileWriter.close();
             }
         } catch (Exception e) {
-            this.tools.CreateAlert(Alert.AlertType.ERROR, "错误", "写入错误", "");
+            WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "写入错误", "");
         }
     }
 }
