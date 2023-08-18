@@ -23,7 +23,7 @@ public class Operation {
             is_change = false;
 
             // 第一种推理方式
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
                 for (int j=0; j<9; j++) {
                     String unknown_str = unknown_list[i][j];
@@ -42,7 +42,7 @@ public class Operation {
             */
 
             // 判断行
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
                 // 判断
                 for (int j=1; j <= 9; j++) {
@@ -70,7 +70,7 @@ public class Operation {
             }
 
             // 判断列
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
                 // 判断
                 for (int j=1; j <= 9; j++) {
@@ -98,7 +98,7 @@ public class Operation {
             }
 
             // 判断宫
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
                     // 判断
@@ -132,7 +132,7 @@ public class Operation {
 
             // 第三种判断方式
             // 检查宫中的行
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
                     String[] strings = new String[9];
@@ -181,7 +181,7 @@ public class Operation {
 
             // 检查宫中的列
             // todo 算法有问题
-            reset_unknown_num(confirm_list, unknown_list);
+            update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
                     String[] strings = new String[9];
@@ -247,7 +247,7 @@ public class Operation {
         end(confirm_label, unknown_label, confirm_list, unknown_list, is_done);
     }
 
-    void reset_unknown_num(String[][] confirm_list, String[][] unknown_list) {
+    void update_unknown_num(String[][] confirm_list, String[][] unknown_list) {
         for (int i=0; i<9; i++) {
             for (int j=0; j<9 ;j++) {
                 if (confirm_list[i][j].equals("")) {
