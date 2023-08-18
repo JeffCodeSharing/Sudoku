@@ -229,16 +229,12 @@ public class Operation {
                 }
             }
 
-            // 第四种方式
-            // todo
-
             // 判断是否完成
             is_done = true;
             for (int i=0; i < 9; i++) {
                 for (int j=0; j < 9; j++) {
                     if (confirm_list[i][j].equals("")) {
                         is_done = false;
-                        break;
                     }
                 }
             }
@@ -246,6 +242,7 @@ public class Operation {
         end(confirm_label, unknown_label, confirm_list, unknown_list, is_done);
     }
 
+    // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
     void update_unknown_num(String[][] confirm_list, String[][] unknown_list) {
         for (int i=0; i<9; i++) {
             for (int j=0; j<9 ;j++) {
@@ -260,7 +257,8 @@ public class Operation {
                     // 获取宫的已知数字
                     for (int k=0; k < 3; k++) {
                         for (int l=0; l < 3; l++) {
-                            String str = confirm_list[i+k-(i % 3)][j+l-(j % 3)];
+                            // 其中的i-(i%3)之类的，是为了将基准点回溯到每一个宫的最左上角的点
+                            String str = confirm_list[i-(i % 3)+k][j-(j % 3)+l];
                             str_unknown = str_unknown.replace(str, "");
                         }
                     }
