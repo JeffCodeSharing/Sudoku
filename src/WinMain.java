@@ -117,7 +117,7 @@ public class WinMain extends Application {
 
     private void add_label_num(String add_num, boolean is_unknown) {
         try {
-            String unknown_num = change_label[1].getText();
+            String unknown_num = change_label[1].getText().replace("\n", "");    // 清除换行符
 
             if (is_unknown) {     // 是批注状态
                 change_label[0].setText("");
@@ -125,10 +125,11 @@ public class WinMain extends Application {
                 // 排序数字
                 String add_str;
                 if (unknown_num.contains(add_num)) {
-                    add_str = unknown_num.replace(add_num, "").replace("\n", "");
+                    add_str = unknown_num.replace(add_num, "");
                 } else {
                     add_str = unknown_num + add_num;
                 }
+
                 char[] numChars = add_str.toCharArray();
                 Arrays.sort(numChars);
 
