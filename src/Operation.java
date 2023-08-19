@@ -26,9 +26,9 @@ public class Operation {
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<9; i++) {
                 for (int j=0; j<9; j++) {
-                    String unknown_str = unknown_list[i][j];
-                    if (unknown_str.length() == 1) {
-                        confirm_list[i][j] = unknown_str;
+                    String item = unknown_list[i][j];
+                    if (item.length() == 1) {
+                        confirm_list[i][j] = item;
                         unknown_list[i][j] = "";
                         is_change = true;
                     }
@@ -47,23 +47,26 @@ public class Operation {
                 for (int j=1; j <= 9; j++) {
                     boolean is_first = false, is_second = false;
                     String only_num = "";
-                    int k_num = 0;
+                    int index = 0;
                     for (int k=0; k < 9; k++) {
                         String type = String.valueOf(j);
                         if (unknown_list[i][k].contains(type)) {
                             if (!is_first) {
                                 is_first = true;
                                 only_num = type;
-                                k_num = k;
-                            } else is_second = true;
+                                index = k;
+                            } else {
+                                is_second = true;
+                                break;
+                            }
                         }
                     }
 
                     // 写入
                     if (is_first && !is_second) {
                         is_change = true;
-                        unknown_list[i][k_num] = "";
-                        confirm_list[i][k_num] = only_num;
+                        unknown_list[i][index] = "";
+                        confirm_list[i][index] = only_num;
                     }
                 }
             }
@@ -75,23 +78,26 @@ public class Operation {
                 for (int j=1; j <= 9; j++) {
                     boolean is_first = false, is_second = false;
                     String only_num = "";
-                    int k_num = 0;
+                    int index = 0;
                     for (int k=0; k < 9; k++) {
                         String type = String.valueOf(j);
                         if (unknown_list[k][i].contains(type)) {
                             if (!is_first) {
                                 is_first = true;
                                 only_num = type;
-                                k_num = k;
-                            } else is_second = true;
+                                index = k;
+                            } else {
+                                is_second = true;
+                                break;
+                            }
                         }
                     }
 
                     // 写入
                     if (is_first && !is_second) {
                         is_change = true;
-                        unknown_list[k_num][i] = "";
-                        confirm_list[k_num][i] = only_num;
+                        unknown_list[index][i] = "";
+                        confirm_list[index][i] = only_num;
                     }
                 }
             }
@@ -141,21 +147,20 @@ public class Operation {
 
                     // 开始检查
                     for (int s=1; s<=9; s++) {
-                        String s_str = String.valueOf(s);
+                        String flag = String.valueOf(s);
                         for (int line1=0; line1<3; line1++) {
-                            boolean is_appear = false;
-                            boolean can_revise = false;
+                            boolean is_appear = false, can_revise = false;
                             final int line2 = (line1 + 1) % 3;
-                            final int line_unchecked = (line2 + 1) % 3;
+                            final int line_not_check = (line2 + 1) % 3;
 
                             for (int k=0; k<3; k++) {
-                                if (strings[line1 * 3 + k].contains(s_str) ||
-                                strings[line2 * 3 + k].contains(s_str)) {
+                                if (strings[line1 * 3 + k].contains(flag) ||
+                                strings[line2 * 3 + k].contains(flag)) {
                                     is_appear = true;
                                     break;
                                 }
 
-                                if (strings[line_unchecked * 3 + k].contains(s_str)) {
+                                if (strings[line_not_check * 3 + k].contains(flag)) {
                                     can_revise = true;
                                 }
                             }
@@ -167,10 +172,12 @@ public class Operation {
                                     }
 
                                     // 更改
-                                    String temp = unknown_list[i+line_unchecked][k];
-                                    if (temp.contains(s_str)) is_change = true;
-                                    temp = temp.replace(s_str, "");
-                                    unknown_list[i+line_unchecked][k] = temp;
+                                    String temp = unknown_list[i+line_not_check][k];
+                                    if (temp.contains(flag)) {
+                                        is_change = true;
+                                        temp = temp.replace(flag, "");
+                                        unknown_list[i + line_not_check][k] = temp;
+                                    }
                                 }
                             }
                         }
@@ -179,7 +186,6 @@ public class Operation {
             }
 
             // 检查宫中的列
-            // todo 算法有问题
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
@@ -192,20 +198,19 @@ public class Operation {
 
                     // 开始检查
                     for (int k=1; k<=9; k++) {
-                        String k_str = String.valueOf(k);
+                        String flag = String.valueOf(k);
                         for (int line1=0; line1<3; line1++) {
-                            boolean is_appear = false;
-                            boolean can_revise = false;
+                            boolean is_appear = false, can_revise = false;
                             int line2 = (line1+1) % 3;
-                            int line_unchecked = (line2+2) % 3;
+                            int line_not_check = (line2+2) % 3;
                             for (int c=0; c<3; c++) {
-                                if (strings[line1 * 3 + c].contains(k_str) ||
-                                        strings[line2 * 3 + c].contains(k_str)) {
+                                if (strings[line1 * 3 + c].contains(flag) ||
+                                        strings[line2 * 3 + c].contains(flag)) {
                                     is_appear = true;
                                     break;
                                 }
 
-                                if (strings[line_unchecked*3+c].contains(k_str)) {
+                                if (strings[line_not_check*3+c].contains(flag)) {
                                     can_revise = true;
                                 }
                             }
@@ -217,11 +222,12 @@ public class Operation {
                                         continue;
                                     }
 
-                                    String str = unknown_list[c][i+line_unchecked];
-                                    if (str.contains(k_str)) is_change = true;
-
-                                    str = str.replace(k_str, "");
-                                    unknown_list[c][i+line_unchecked] = str;
+                                    String str = unknown_list[c][i+line_not_check];
+                                    if (str.contains(flag)) {
+                                        is_change = true;
+                                        str = str.replace(flag, "");
+                                        unknown_list[c][i + line_not_check] = str;
+                                    }
                                 }
                             }
                         }
@@ -245,44 +251,40 @@ public class Operation {
 
     // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
     void update_unknown_num(String[][] confirm_list, String[][] unknown_list) {
-        for (int i=0; i<9; i++) {
-            for (int j=0; j<9 ;j++) {
-                if (confirm_list[i][j].equals("")) {
-                    String str_unknown = unknown_list[i][j];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (!unknown_list[i][j].equals("")) {
+                    String item = unknown_list[i][j];
                     // 获取行列的已知数字
-                    for (int k=0; k < 9; k++) {
-                        str_unknown = str_unknown.replace(confirm_list[i][k], "");
-                        str_unknown = str_unknown.replace(confirm_list[k][j], "");
+                    for (int k = 0; k < 9; k++) {
+                        item = item.replace(confirm_list[i][k], "").replace(confirm_list[k][j], "");
                     }
 
                     // 获取宫的已知数字
-                    for (int k=0; k < 3; k++) {
-                        for (int l=0; l < 3; l++) {
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
                             // 其中的i-(i%3)之类的，是为了将基准点回溯到每一个宫的最左上角的点
-                            String str = confirm_list[i-(i % 3)+k][j-(j % 3)+l];
-                            str_unknown = str_unknown.replace(str, "");
+                            String str = confirm_list[i - (i % 3) + k][j - (j % 3) + l];
+                            item = item.replace(str, "");
                         }
                     }
-                    unknown_list[i][j] = str_unknown;
+                    unknown_list[i][j] = item;
                 }
             }
         }
     }
 
+
     void end(List<List<Label>> confirm_label, List<List<Label>> unknown_label, String[][] confirm, String[][] unknown, boolean type) {
         for (int i=0; i<9; i++) {
             for (int j=0; j<9; j++) {
-                String str = confirm[i][j];
-                if (str.length()>5) {
-                    str = str.substring(0, 5) + "\n" + str.substring(5);
-                }
-                confirm_label.get(i).get(j).setText(str);
+                confirm_label.get(i).get(j).setText(confirm[i][j]);
 
-                String str2 = unknown[i][j];
-                if (str2.length()>5) {
-                    str2 = str2.substring(0, 5) + "\n" + str2.substring(5);
+                StringBuilder builder = new StringBuilder(unknown[i][j]);
+                if (builder.length()>5) {
+                    builder.insert(5, "\n");
                 }
-                unknown_label.get(i).get(j).setText(str2);
+                unknown_label.get(i).get(j).setText(builder.toString());
             }
         }
 
