@@ -202,7 +202,7 @@ public class Operation {
                         for (int line1=0; line1<3; line1++) {
                             boolean is_appear = false, can_revise = false;
                             int line2 = (line1+1) % 3;
-                            int line_not_check = (line2+2) % 3;
+                            int line_not_check = (line2+1) % 3;
                             for (int c=0; c<3; c++) {
                                 if (strings[line1 * 3 + c].contains(flag) ||
                                         strings[line2 * 3 + c].contains(flag)) {
