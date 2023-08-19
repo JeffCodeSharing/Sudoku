@@ -235,6 +235,7 @@ public class Operation {
                 for (int j=0; j < 9; j++) {
                     if (confirm_list[i][j].equals("")) {
                         is_done = false;
+                        break;    // 判断提前结束
                     }
                 }
             }
