@@ -186,7 +186,7 @@ public class Operation {
             }
 
             // 检查宫中的列
-            /*
+            // todo 有Bug
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
@@ -219,7 +219,7 @@ public class Operation {
                             // 开始写入
                             if (!is_appear && can_revise) {
                                 for (int c=0; c<9; c++) {
-                                    if (c >= i && c < (i+3)) {
+                                    if (c >= j && c < (j+3)) {
                                         continue;
                                     }
 
@@ -235,8 +235,6 @@ public class Operation {
                     }
                 }
             }
-
-             */
 
             // 判断是否完成
             is_done = true;
