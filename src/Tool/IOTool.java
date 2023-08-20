@@ -38,6 +38,7 @@ public class IOTool {
                         }
                     }
                 }
+                sc.close();
             }
         } catch (Exception e) {
             WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "文件损坏", "");

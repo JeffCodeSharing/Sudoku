@@ -186,6 +186,7 @@ public class Operation {
             }
 
             // 检查宫中的列
+            /*
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
@@ -234,6 +235,8 @@ public class Operation {
                     }
                 }
             }
+
+             */
 
             // 判断是否完成
             is_done = true;
