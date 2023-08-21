@@ -219,15 +219,15 @@ public class Operation {
                             // 开始写入
                             if (!is_appear && can_revise) {
                                 for (int c=0; c<9; c++) {
-                                    if (c >= j && c < (j+3)) {
+                                    if (c >= i && c < (i+3)) {
                                         continue;
                                     }
 
-                                    String str = unknown_list[c][i+line_not_check];
+                                    String str = unknown_list[c][j+line_not_check];
                                     if (str.contains(flag)) {
                                         is_change = true;
                                         str = str.replace(flag, "");
-                                        unknown_list[c][i + line_not_check] = str;
+                                        unknown_list[c][j+line_not_check] = str;
                                     }
                                 }
                             }
