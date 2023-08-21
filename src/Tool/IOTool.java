@@ -41,6 +41,14 @@ public class IOTool {
                 sc.close();
             }
         } catch (Exception e) {
+            // clean the list
+            for (int i=0; i<9; i++) {
+                for (int j=0; j<9; j++) {
+                    confirm_list.get(i).get(j).setText("");
+                    unknown_list.get(i).get(j).setText("");
+                }
+            }
+
             WinTool.CreateAlert(Alert.AlertType.ERROR, "错误", "文件损坏", "");
         }
     }
