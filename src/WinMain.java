@@ -1,5 +1,6 @@
 import Tool.IOTool;
 import Tool.WinTool;
+import crack.Operation;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

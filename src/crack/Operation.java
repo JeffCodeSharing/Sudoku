@@ -1,3 +1,5 @@
+package crack;
+
 import Tool.WinTool;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -186,7 +188,6 @@ public class Operation {
             }
 
             // 检查宫中的列
-            // todo 有Bug
             update_unknown_num(confirm_list, unknown_list);
             for (int i=0; i<=6; i+=3) {
                 for (int j=0; j<=6; j+=3) {
