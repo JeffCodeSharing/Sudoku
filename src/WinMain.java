@@ -1,3 +1,4 @@
+import Generate.Generator;
 import Tool.IOTool;
 import Tool.WinTool;
 import crack.Operation;
@@ -55,8 +56,18 @@ public class WinMain extends Application {
         MenuItem output = new MenuItem("导出");
         output.setOnAction(actionEvent -> IOTool.output(confirm_num, unknown_num));
         fileMenu.getItems().addAll(input, output);
+
+        Menu generate = new Menu("生成数独");
+        MenuItem item = new MenuItem("生成");
+        item.setOnAction(actionEvent -> {
+            // todo 移交到Screen中
+            Generator generator = new Generator();
+            generator.generate();
+            generator.displayBoard();
+        });
+        generate.getItems().addAll(item);
         
-        menuBar.getMenus().addAll(fileMenu);
+        menuBar.getMenus().addAll(fileMenu, generate);
         group.getChildren().add(menuBar);
 
         // 清空按钮

@@ -2,12 +2,12 @@ package Generate;
 
 import java.util.Random;
 
-class SudokuGenerator {
+public class Generator {
     private final int[][] board;
     private static final int SIZE = 9;
     private static final int EMPTY = 0;
 
-    public SudokuGenerator() {
+    public Generator() {
         board = new int[SIZE][SIZE];
     }
 
@@ -116,11 +116,5 @@ class SudokuGenerator {
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-        SudokuGenerator sudoku = new SudokuGenerator();
-        sudoku.generate();
-        sudoku.displayBoard();
     }
 }
