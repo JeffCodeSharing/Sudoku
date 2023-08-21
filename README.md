@@ -22,8 +22,7 @@ This program can help you crack Sudoku,
 but its current functions are not very complete. \
 Now Seek help from competent users as follows:
   1. More cracking algorithms
-  2. Simplify code and improve performance 
-  3. The Method of Generating Sudoku
+  2. Simplify code and improve performance
 
 ## 中文
 入口源文件：WinMain.java\
@@ -48,4 +47,3 @@ JavaFx: JavaFx-18.0.2
 以下向有能力的使用者寻求帮助：
   1. 更多的破解算法
   2. 简化代码，提升性能
-  3. 生成数独的方法
