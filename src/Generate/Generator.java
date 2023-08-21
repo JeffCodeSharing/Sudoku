@@ -98,7 +98,7 @@ public class Generator {
     private void removeCells() {
         Random random = new Random();
 
-        int i = random.nextInt(41);
+        int i = random.nextInt(11) + 30;
         while (i > 0) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
