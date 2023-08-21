@@ -1,4 +1,4 @@
-package crack;
+package Crack;
 
 import Tool.WinTool;
 import javafx.scene.control.Alert;

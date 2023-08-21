@@ -1,7 +1,7 @@
 import Generate.Generator;
 import Tool.IOTool;
 import Tool.WinTool;
-import crack.Operation;
+import Crack.Operation;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
