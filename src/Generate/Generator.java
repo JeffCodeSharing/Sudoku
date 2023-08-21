@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Generator {
     private final int[][] board;
-    private static final int SIZE = 9;
-    private static final int EMPTY = 0;
+    private final int SIZE = 9;
+    private final int EMPTY = 0;
 
     public Generator() {
         board = new int[SIZE][SIZE];
@@ -97,17 +97,15 @@ public class Generator {
 
     private void removeCells() {
         Random random = new Random();
-        int remainingCells = SIZE * SIZE;
-        int cellsToRemove = remainingCells / 2;
 
-        while (cellsToRemove > 0) {
+        int i = random.nextInt(11) + 20;
+        while (i > 0) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
 
             if (board[row][col] != EMPTY) {
                 board[row][col] = EMPTY;
-                cellsToRemove--;
-                remainingCells--;
+                i--;
             }
         }
     }
