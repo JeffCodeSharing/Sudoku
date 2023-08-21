@@ -60,10 +60,9 @@ public class WinMain extends Application {
         Menu generate = new Menu("生成数独");
         MenuItem item = new MenuItem("生成");
         item.setOnAction(actionEvent -> {
-            // todo 移交到Screen中
             Generator generator = new Generator();
             generator.generate();
-            generator.displayBoard();
+            generator.displayBoard(confirm_num, unknown_num);
         });
         generate.getItems().addAll(item);
         

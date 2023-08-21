@@ -1,5 +1,8 @@
 package Generate;
 
+import javafx.scene.control.Label;
+
+import java.util.List;
 import java.util.Random;
 
 public class Generator {
@@ -109,12 +112,17 @@ public class Generator {
         }
     }
 
-    public void displayBoard() {
+    public void displayBoard(List<List<Label>> confirm, List<List<Label>> unknown) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                System.out.print(board[i][j] + " ");
+                // clean the list
+                confirm.get(i).get(j).setText("");
+                unknown.get(i).get(j).setText("");
+
+                if (board[i][j] != 0) {
+                    confirm.get(i).get(j).setText(String.valueOf(board[i][j]));
+                }
             }
-            System.out.println();
         }
     }
 }
