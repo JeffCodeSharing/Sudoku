@@ -24,7 +24,6 @@ public class Operation {
             for (int j = 0; j < 9; j++) {
                 // 获取行列的已知数字
                 for (int k = 0; k < 9; k++) {
-                    char a = numbers[i][k].getConfirm();
                     numbers[i][j].replace(numbers[i][k].getConfirm());
                     numbers[i][j].replace(numbers[k][j].getConfirm());
                 }
