@@ -9,7 +9,7 @@ public class Operation {
                     String[][] confirm_list, String[][] unknown_list) {
         // 一开始的设置
         for (int i=0; i<9; i++) {
-            for (int j=0; j<9 ;j++) {
+            for (int j=0; j<9; j++) {
                 if (confirm_list[i][j].equals("")) {
                     unknown_list[i][j] = "123456789";
                 }
