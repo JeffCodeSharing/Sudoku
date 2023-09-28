@@ -1,3 +1,4 @@
+import Block.Block;
 import Generate.Generator;
 import Tool.IOTool;
 import Tool.WinTool;
@@ -77,7 +78,7 @@ public class WinMain extends Application {
         // 自动运算按钮
         Button button_run = WinTool.CreateButton(530, 450, 110, 50, 20, "自动运算");
         button_run.setOnAction(actionEvent -> {
-            boolean done = new Operation().run(confirm_num, unknown_num, get_label_text(confirm_num), get_label_text(unknown_num));
+            boolean done = new Operation().run(to_blocks());
             end(done);
         });
         group.getChildren().add(button_run);
@@ -158,18 +159,22 @@ public class WinMain extends Application {
         } catch (Exception ignored) {}
     }
 
-    private String[][] get_label_text(List<List<Label>> list) {
-        String[][] return_array = new String[9][9];
+    private Block[][] to_blocks() {
+        Block[][] array = new Block[9][9];
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
-                String str = list.get(i).get(j).getText();
-                if (str == null) {
-                    str = "";
+                String confirm_str = confirm_num.get(i).get(j).getText();
+                String unknown_str = unknown_num.get(i).get(j).getText();
+                if (confirm_str == null) {
+                    confirm_str = "";
                 }
-                return_array[i][j] = str;
+                if (unknown_str == null) {
+                    unknown_str = "";
+                }
+                array[i][j] = new Block(confirm_str + unknown_str);
             }
         }
-        return return_array;
+        return array;
     }
 
     private void update_change_label(int column_num, int row_num) {
