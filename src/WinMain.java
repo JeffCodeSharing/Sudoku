@@ -76,7 +76,10 @@ public class WinMain extends Application {
 
         // 自动运算按钮
         Button button_run = WinTool.CreateButton(530, 450, 110, 50, 20, "自动运算");
-        button_run.setOnAction(actionEvent -> new Operation().run(confirm_num, unknown_num, get_label_text(confirm_num), get_label_text(unknown_num)));
+        button_run.setOnAction(actionEvent -> {
+            boolean done = new Operation().run(confirm_num, unknown_num, get_label_text(confirm_num), get_label_text(unknown_num));
+            end(done);
+        });
         group.getChildren().add(button_run);
 
         // 按钮数字
@@ -94,6 +97,9 @@ public class WinMain extends Application {
             for (int j = 1; j <= 9; j++) {
                 Label confirm_label = WinTool.CreateLabel(j*50, i*50, 50, 50, 25, Color.BLACK, "", true);
                 Label unknown_label = WinTool.CreateLabel(j*50, i*50, 50, 50, 16, Color.BLUE, "", true);
+
+                unknown_label.setWrapText(true);
+
                 // 用于检测按键按下并执行
                 final int column_num = i - 1;
                 final int row_num = j - 1;
@@ -128,7 +134,7 @@ public class WinMain extends Application {
 
     private void add_label_num(String add_num, boolean is_unknown) {
         try {
-            String unknown_num = change_label[1].getText().replace("\n", "");    // 清除换行符
+            String unknown_num = change_label[1].getText();    // 清除换行符
 
             if (is_unknown) {     // 是批注状态
                 change_label[0].setText("");
@@ -144,12 +150,7 @@ public class WinMain extends Application {
                 char[] numChars = add_str.toCharArray();
                 Arrays.sort(numChars);
 
-                StringBuilder builder = new StringBuilder(new String(numChars));
-                if (builder.length() > 5) {
-                    builder.insert(5, "\n");
-                }
-
-                change_label[1].setText(builder.toString());
+                change_label[1].setText(new String(numChars));
             } else {      // 是确定状态
                 change_label[1].setText("");
                 change_label[0].setText(add_num);
@@ -165,7 +166,6 @@ public class WinMain extends Application {
                 if (str == null) {
                     str = "";
                 }
-                str = str.replace("\n", "");
                 return_array[i][j] = str;
             }
         }
@@ -185,6 +185,15 @@ public class WinMain extends Application {
                 confirm_num.get(i).get(j).setText("");
                 unknown_num.get(i).get(j).setText("");
             }
+        }
+    }
+
+    void end(boolean type) {
+        // Alert提醒
+        if (type) {
+            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "完成", "程序已经完成了！", "要不再让来试一次");
+        } else {
+            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "程序已无法推理", "OOO, 我们已经尽力了", "祝你好运");
         }
     }
 

@@ -1,13 +1,11 @@
 package Crack;
 
-import Tool.WinTool;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import java.util.List;
 
 public class Operation {
-    public void run(List<List<Label>> confirm_label, List<List<Label>> unknown_label,
+    public boolean run(List<List<Label>> confirm_label, List<List<Label>> unknown_label,
                     String[][] confirm_list, String[][] unknown_list) {
         // 一开始的设置
         for (int i=0; i<9; i++) {
@@ -248,7 +246,16 @@ public class Operation {
                 }
             }
         }
-        end(confirm_label, unknown_label, confirm_list, unknown_list, is_done);
+
+        // 数据的覆盖
+        for (int i=0; i<9; i++) {
+            for (int j=0; j<9; j++) {
+                confirm_label.get(i).get(j).setText(confirm_list[i][j]);
+                unknown_label.get(i).get(j).setText(unknown_list[i][j]);
+            }
+        }
+
+        return is_done;
     }
 
     // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
@@ -273,28 +280,6 @@ public class Operation {
                     unknown_list[i][j] = item;
                 }
             }
-        }
-    }
-
-
-    void end(List<List<Label>> confirm_label, List<List<Label>> unknown_label, String[][] confirm, String[][] unknown, boolean type) {
-        for (int i=0; i<9; i++) {
-            for (int j=0; j<9; j++) {
-                confirm_label.get(i).get(j).setText(confirm[i][j]);
-
-                StringBuilder builder = new StringBuilder(unknown[i][j]);
-                if (builder.length()>5) {
-                    builder.insert(5, "\n");
-                }
-                unknown_label.get(i).get(j).setText(builder.toString());
-            }
-        }
-
-        // Alert提醒
-        if (type) {
-            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "完成", "程序已经完成了！", "要不再让来试一次");
-        } else {
-            WinTool.CreateAlert(Alert.AlertType.INFORMATION, "程序已无法推理", "OOO, 我们已经尽力了", "祝你好运");
         }
     }
 }
