@@ -78,7 +78,13 @@ public class WinMain extends Application {
         // 自动运算按钮
         Button button_run = WinTool.CreateButton(530, 450, 110, 50, 20, "自动运算");
         button_run.setOnAction(actionEvent -> {
-            boolean done = new Operation().run(to_blocks());
+            Block[][] blocks = get_blocks();
+            boolean done = new Operation(blocks).run();
+
+            // 结束后数据的刷新
+            reload_numbers(blocks);
+
+            // 弹出弹窗
             end(done);
         });
         group.getChildren().add(button_run);
@@ -159,7 +165,7 @@ public class WinMain extends Application {
         } catch (Exception ignored) {}
     }
 
-    private Block[][] to_blocks() {
+    private Block[][] get_blocks() {
         Block[][] array = new Block[9][9];
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
@@ -195,6 +201,20 @@ public class WinMain extends Application {
             for (int j=0; j<9; j++) {
                 confirm_num.get(i).get(j).setText("");
                 unknown_num.get(i).get(j).setText("");
+            }
+        }
+    }
+
+    private void reload_numbers(Block[][] blocks) {
+        System.out.println(1);
+        for (int i=0; i<9; i++) {
+            for (int j=0; j<9; j++) {
+                String text = blocks[i][j].getData();
+                if (text.length() == 1) {
+                    confirm_num.get(i).get(j).setText(text);
+                } else {
+                    unknown_num.get(i).get(j).setText(text);
+                }
             }
         }
     }

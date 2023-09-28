@@ -249,28 +249,3 @@
 
         return is_done;
     }
-
-    // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
-    void update_unknown_num(String[][] confirm_list, String[][] unknown_list) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (!unknown_list[i][j].equals("")) {
-                    String item = unknown_list[i][j];
-                    // 获取行列的已知数字
-                    for (int k = 0; k < 9; k++) {
-                        item = item.replace(confirm_list[i][k], "").replace(confirm_list[k][j], "");
-                    }
-
-                    // 获取宫的已知数字
-                    for (int k = 0; k < 3; k++) {
-                        for (int l = 0; l < 3; l++) {
-                            // 其中的i-(i%3)之类的，是为了将基准点回溯到每一个宫的最左上角的点
-                            String str = confirm_list[i - (i % 3) + k][j - (j % 3) + l];
-                            item = item.replace(str, "");
-                        }
-                    }
-                    unknown_list[i][j] = item;
-                }
-            }
-        }
-    }
