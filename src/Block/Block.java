@@ -29,11 +29,13 @@ public class Block {
     }
 
     public void replace(Character replace_char) {
-        data.remove(replace_char);
+        if (data.size() != 1) {      // 如果本格已经是唯一数了，就不接受任何数字的剔除了
+            data.remove(replace_char);
+        }
     }
 
     public char getConfirm() {
-        if (data.size() == 1) {
+        if (isConfirm()) {
             return data.get(0);
         }
         return 0;    // 返回char 0，即没有 -> 在使用remove时会自动跳过
