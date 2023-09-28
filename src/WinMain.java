@@ -171,7 +171,13 @@ public class WinMain extends Application {
                 if (unknown_str == null) {
                     unknown_str = "";
                 }
-                array[i][j] = new Block(confirm_str + unknown_str);
+
+                String final_str = confirm_str + unknown_str;
+                if (final_str.equals("")) {
+                    array[i][j] = new Block();
+                } else {
+                    array[i][j] = new Block(final_str);
+                }
             }
         }
         return array;
