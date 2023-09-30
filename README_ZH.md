@@ -1,5 +1,13 @@
 # 数独工具
 
+<p>
+  <a href="README.md"><img src="https://img.shields.io/badge/Document-English-white.svg" alt="ZH doc"/></a>
+</p>
+
+<p>
+  <a href="https://codeforfree.kesug.com/productions/sudoku">来我们的网站</a>
+</p>
+
 ## 中文
 入口源文件：WinMain.java\
 位于：src/WinMain.java
