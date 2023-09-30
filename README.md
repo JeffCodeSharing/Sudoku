@@ -1,4 +1,4 @@
-# Sudoku_Cracking
+# Sudoku_Helper
 
 ## English
 Entry source file: WinMain.java\
