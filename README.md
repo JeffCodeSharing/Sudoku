@@ -6,6 +6,7 @@
 
 [To Our Website](https://codeforfree.kesug.com/productions/sudoku)
 
+<p>
 Entry source file: WinMain.java\
 Located at: src/WinMain.java
 
@@ -28,3 +29,4 @@ but its current functions are not very complete. \
 Now Seek help from competent users as follows:
   1. More cracking algorithms
   2. Simplify code and improve performance
+</p>
