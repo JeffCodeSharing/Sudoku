@@ -7,26 +7,26 @@
 [To Our Website](https://codeforfree.kesug.com/productions/sudoku)
 
 <p>
-Entry source file: WinMain.java\
-Located at: src/WinMain.java
+Entry source file: WinMain.java <br>
+Located at: src/WinMain.java <br>
 
-Entry class file: WinMainLauncher.class\
-Located at：out/production/Sudoku/WinMainLauncher.class
+Entry class file: WinMainLauncher.class <br>
+Located at：out/production/Sudoku/WinMainLauncher.class <br>
 
-Detailed purpose of the document:\
-WinMain.java &nbsp; Entrance for the Program \
-Operation.java &nbsp; cracking algorithm \
-Tool.WinTool.java &nbsp; Drawing Method for GUI Control\
-Tool.IOTool.Java &nbsp; Input and output of Sudoku storage files
+Detailed purpose of the document: <br>
+WinMain.java &nbsp; Entrance for the Program <br>
+Operation.java &nbsp; cracking algorithm <br>
+Tool.WinTool.java &nbsp; Drawing Method for GUI Control <br>
+Tool.IOTool.Java &nbsp; Input and output of Sudoku storage files <br>
 
-Write version: \
-Java:   OpenJDK-17.0.6 \
-JavaFx: JavaFx-18.0.2
+Write version: <br>
+Java:   OpenJDK-17.0.6 <br>
+JavaFx: JavaFx-18.0.2 <br>
 
-Program Introduction: \
-This program can help you crack Sudoku, 
-but its current functions are not very complete. \
-Now Seek help from competent users as follows:
-  1. More cracking algorithms
-  2. Simplify code and improve performance
+Program Introduction: <br>
+This program can help you crack Sudoku,  <br>
+but its current functions are not very complete. <br>
+Now Seek help from competent users as follows: <br>
+  1. More cracking algorithms <br>
+  2. Simplify code and improve performance <br>
 </p>
