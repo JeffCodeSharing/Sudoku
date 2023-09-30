@@ -14,10 +14,12 @@ Entry class file: WinMainLauncher.class <br>
 Located at：out/production/Sudoku/WinMainLauncher.class <br>
 
 Detailed purpose of the document: <br>
-WinMain.java &nbsp; Entrance for the Program <br>
-Operation.java &nbsp; cracking algorithm <br>
-Tool.WinTool.java &nbsp; Drawing Method for GUI Control <br>
-Tool.IOTool.Java &nbsp; Input and output of Sudoku storage files <br>
+<ol>
+  <li>WinMain.java &nbsp; Entrance for the Program</li>
+  <li>Operation.java &nbsp; cracking algorithm</li>
+  <li>Tool.WinTool.java &nbsp; Drawing Method for GUI Control</li>
+  <li>Tool.IOTool.Java &nbsp; Input and output of Sudoku storage files</li>
+</ol>
 
 Write version: <br>
 Java:   OpenJDK-17.0.6 <br>
@@ -27,6 +29,8 @@ Program Introduction: <br>
 This program can help you crack Sudoku,  <br>
 but its current functions are not very complete. <br>
 Now Seek help from competent users as follows: <br>
-  1. More cracking algorithms <br>
-  2. Simplify code and improve performance <br>
+<ol>
+  <li>More cracking algorithms</li>
+  <li>Simplify code and improve performance</li>
+</ol>
 </p>
