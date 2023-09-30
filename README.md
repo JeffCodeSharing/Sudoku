@@ -1,6 +1,9 @@
 # Sudoku_Helper
 
-<a href="README_ZH.md"><img src="https://img.shields.io/badge/文档-中文版-white.svg" alt="ZH doc"/></a>
+<p>
+  <a href="README_ZH.md"><img src="https://img.shields.io/badge/文档-中文版-white.svg" alt="ZH doc"/></a>
+</p>
+
 [To Our Website](https://codeforfree.kesug.com/productions/sudoku)
 
 Entry source file: WinMain.java\
