@@ -1,7 +1,7 @@
 <h1>数独工具</h1>
 
 <p>
-  <a href="README.md"><img src="https://img.shields.io/badge/Document-English-white.svg" alt="ZH doc"/></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/Document-English-white.svg" alt="Eng doc"/></a>
 </p>
 
 <p>

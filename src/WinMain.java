@@ -59,13 +59,27 @@ public class WinMain extends Application {
         fileMenu.getItems().addAll(input, output);
 
         Menu generate = new Menu("生成数独");
-        MenuItem item = new MenuItem("生成");
-        item.setOnAction(actionEvent -> {
+        MenuItem level1 = new MenuItem("低级");
+        MenuItem level2 = new MenuItem("中级");
+        MenuItem level3 = new MenuItem("高级");
+
+        level1.setOnAction(actionEvent -> {
             Generator generator = new Generator();
-            generator.generate();
+            generator.generate(20);
             generator.displayBoard(confirm_num, unknown_num);
         });
-        generate.getItems().addAll(item);
+        level2.setOnAction(actionEvent -> {
+            Generator generator = new Generator();
+            generator.generate(40);
+            generator.displayBoard(confirm_num, unknown_num);
+        });
+        level3.setOnAction(actionEvent -> {
+            Generator generator = new Generator();
+            generator.generate(50);
+            generator.displayBoard(confirm_num, unknown_num);
+        });
+
+        generate.getItems().addAll(level1, level2, level3);
         
         menuBar.getMenus().addAll(fileMenu, generate);
         group.getChildren().add(menuBar);
@@ -206,7 +220,6 @@ public class WinMain extends Application {
     }
 
     private void reload_numbers(Block[][] blocks) {   // 在完成自动运算之后对Label的覆盖
-
         for (int i=0; i<9; i++) {
             for (int j=0; j<9; j++) {
                 // 清空数据

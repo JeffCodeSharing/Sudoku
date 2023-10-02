@@ -16,9 +16,10 @@ public class Generator {
         board = new int[SIZE][SIZE];
     }
 
-    public void generate() {
+    public void generate(int remove_num) {
+        // 备注：这里的remove_num指的是至少要移除的单元格个数，最多移除个数为remove_num+10
         fillBoard();
-        removeCells();
+        removeCells(remove_num);
     }
 
     private void fillBoard() {
@@ -97,7 +98,7 @@ public class Generator {
         return false;
     }
 
-    private void removeCells() {
+    private void removeCells(int remove_num) {
         while (true) {
             int[][] digging_board = new int[SIZE][SIZE];
             for (int i=0; i<SIZE; i++) {
@@ -106,7 +107,7 @@ public class Generator {
 
             Random random = new Random();
 
-            int i = random.nextInt(11) + 40;
+            int i = random.nextInt(11) + remove_num;
             while (i > 0) {
                 int row = random.nextInt(SIZE);
                 int col = random.nextInt(SIZE);
