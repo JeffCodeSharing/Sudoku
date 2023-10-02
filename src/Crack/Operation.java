@@ -17,7 +17,7 @@ public class Operation {
             is_change = update_unknown_num();
 
             /*
-              第二种推理方式
+              第一种推理方式
               本方式共分3个步骤，是唯一可能性的方式
               分别判断：行、列、宫
             */
@@ -105,6 +105,96 @@ public class Operation {
                         if (is_first && !is_second) {
                             numbers[cell_type[0]][cell_type[1]].writeConfirm(only_num);
                             is_change = true;
+                        }
+                    }
+                }
+            }
+
+            // 第二种判断方式
+            // 检查宫中的行
+            update_unknown_num();
+            for (int i=0; i<=6; i+=3) {
+                for (int j=0; j<=6; j+=3) {
+                    Block[] blocks = new Block[9];
+                    for (int k=0; k<3; k++) {
+                        System.arraycopy(numbers[i + k], j, blocks, k * 3, 3);
+                    }
+
+                    // 开始检查
+                    for (char flag='1'; flag<='9'; flag++) {
+                        for (int line1=0; line1<3; line1++) {
+                            boolean is_appear = false, can_revise = false;
+                            final int line2 = (line1 + 1) % 3;
+                            final int line_not_check = (line2 + 1) % 3;
+
+                            for (int k=0; k<3; k++) {
+                                if (blocks[line1 * 3 + k].contain(flag) ||
+                                        blocks[line2 * 3 + k].contain(flag)) {
+                                    is_appear = true;
+                                    break;
+                                }
+
+                                if (blocks[line_not_check * 3 + k].contain(flag)) {
+                                    can_revise = true;
+                                }
+                            }
+
+                            if (!is_appear && can_revise) {
+                                for (int k=0; k<9; k++) {
+                                    if (k >= j && k < (j+3)) {
+                                        continue;
+                                    }
+
+                                    // 更改
+                                    Block change_block = numbers[i+line_not_check][k];
+                                    is_change = change_block.replace(flag) || is_change;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 检查宫中的列
+            update_unknown_num();
+            for (int i=0; i<=6; i+=3) {
+                for (int j=0; j<=6; j+=3) {
+                    Block[] blocks = new Block[9];
+                    for (int k=0; k<3; k++) {
+                        for (int l=0; l<3; l++) {
+                            blocks[l*3+k] = numbers[i+k][j+l];
+                        }
+                    }
+
+                    // 开始检查
+                    for (char flag='1'; flag<='9'; flag++) {
+                        for (int line1=0; line1<3; line1++) {
+                            boolean is_appear = false, can_revise = false;
+                            int line2 = (line1+1) % 3;
+                            int line_not_check = (line2+1) % 3;
+                            for (int c=0; c<3; c++) {
+                                if (blocks[line1 * 3 + c].contain(flag) ||
+                                        blocks[line2 * 3 + c].contain(flag)) {
+                                    is_appear = true;
+                                    break;
+                                }
+
+                                if (blocks[line_not_check*3+c].contain(flag)) {
+                                    can_revise = true;
+                                }
+                            }
+
+                            // 开始写入
+                            if (!is_appear && can_revise) {
+                                for (int c=0; c<9; c++) {
+                                    if (c >= i && c < (i+3)) {
+                                        continue;
+                                    }
+
+                                    Block change_block = numbers[c][j+line_not_check];
+                                    is_change = change_block.replace(flag) || is_change;
+                                }
+                            }
                         }
                     }
                 }
