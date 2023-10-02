@@ -167,7 +167,6 @@ public class Operation {
                     }
 
                     // 开始检查
-
                     for (char flag='1'; flag<='9'; flag++) {
                         for (int line1=0; line1<3; line1++) {
                             boolean is_appear = false, can_revise = false;
