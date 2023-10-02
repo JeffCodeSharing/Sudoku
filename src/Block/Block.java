@@ -12,6 +12,10 @@ public class Block {
         }
     }
 
+    public Block(int i) {
+        data.add((char) (i + 48));
+    }
+
     public Block() {
         char[] init_data = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9'};
         for (char temp : init_data) {

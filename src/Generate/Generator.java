@@ -1,12 +1,14 @@
 package Generate;
 
+import Block.Block;
+import Crack.Operation;
 import javafx.scene.control.Label;
 
 import java.util.List;
 import java.util.Random;
 
 public class Generator {
-    private final int[][] board;
+    private int[][] board;
     private final int SIZE = 9;
     private final int EMPTY = 0;
 
@@ -96,25 +98,46 @@ public class Generator {
     }
 
     private void removeCells() {
-        Random random = new Random();
+        while (true) {
+            int[][] digging_board = new int[SIZE][SIZE];
+            for (int i=0; i<SIZE; i++) {
+                System.arraycopy(board[i], 0, digging_board[i], 0, SIZE);
+            }
 
-        int i = random.nextInt(11) + 30;
-        while (i > 0) {
-            int row = random.nextInt(SIZE);
-            int col = random.nextInt(SIZE);
+            Random random = new Random();
 
-            if (board[row][col] != EMPTY) {
-                board[row][col] = EMPTY;
+            int i = random.nextInt(11) + 40;
+            while (i > 0) {
+                int row = random.nextInt(SIZE);
+                int col = random.nextInt(SIZE);
 
-                // Check if the board still has a unique solution
-                int[][] tempBoard = new int[SIZE][SIZE];
-                for (int x = 0; x < SIZE; x++) {
-                    System.arraycopy(board[x], 0, tempBoard[x], 0, SIZE);
+                if (digging_board[row][col] != EMPTY) {
+                    digging_board[row][col] = EMPTY;
+
+                    i--;
                 }
+            }
 
-                i--;
+            Block[][] blocks = to_blocks(digging_board);
+            if (new Operation(blocks).run()) {      // 如果通过唯一数测试
+                board = digging_board;
+                break;
             }
         }
+    }
+
+    private Block[][] to_blocks(int[][] change_board) {
+        Block[][] blocks = new Block[SIZE][SIZE];
+        for (int i=0; i<SIZE; i++) {
+            for (int j=0; j<SIZE; j++) {
+                int temp = change_board[i][j];
+
+                // 如果格子被挖空，就选择未知数的Block，否则就选择已知数的格
+                blocks[i][j] = (temp == 0) ? new Block() : new Block(temp);
+            }
+        }
+
+        return blocks;
     }
 
     public void displayBoard(List<List<Label>> confirm, List<List<Label>> unknown) {
