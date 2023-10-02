@@ -7,9 +7,8 @@ public class Block {
     private final List<Character> data = new ArrayList<>();
 
     public Block(String s) {
-        for (int i=0; i<s.length(); i++) {
-            char temp = s.charAt(i);
-            data.add(temp);
+        for (char ch:s.toCharArray()) {
+            data.add(ch);
         }
     }
 
@@ -35,16 +34,11 @@ public class Block {
         return false;
     }
 
-    public boolean contain(char check_char) {
+    public boolean contain(Character check_char) {
         // 如果存储的数据是Unknown状态的，才比较
         if (isUnknown()) {
-            for (char temp:data) {
-                if (temp == check_char) {
-                    return true;
-                }
-            }
+            return data.contains(check_char);
         }
-
         return false;
     }
 

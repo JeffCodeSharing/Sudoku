@@ -206,8 +206,14 @@ public class WinMain extends Application {
     }
 
     private void reload_numbers(Block[][] blocks) {   // 在完成自动运算之后对Label的覆盖
+
         for (int i=0; i<9; i++) {
             for (int j=0; j<9; j++) {
+                // 清空数据
+                confirm_num.get(i).get(j).setText("");
+                unknown_num.get(i).get(j).setText("");
+
+                // 写入数据
                 String text = blocks[i][j].getData();
                 if (text.length() == 1) {
                     confirm_num.get(i).get(j).setText(text);
