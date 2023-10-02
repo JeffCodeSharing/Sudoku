@@ -20,6 +20,7 @@
 <ol>
   <li>WinMain.java&nbsp;入口</li>
   <li>Operation.java&nbsp;破解算法</li>
+  <li>Generator.java 生成算法</li>
   <li>Tool.WinTool.java&nbsp;GUI控件的绘制方法</li>
   <li>Tool.IOTool.java&nbsp;数独存储文件的输入和输出</li>
 </ol>
@@ -36,4 +37,3 @@ JavaFx: JavaFx-18.0.2<br>
   <li>更多的破解算法</li>
   <li>简化代码，提升性能</li>
 </ol>
-</p>
