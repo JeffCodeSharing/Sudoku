@@ -10,33 +10,141 @@ public class Operation {
     }
 
     public boolean run() {
-        for (int i=0; i<20; i++) {
-            update_unknown_num();
-        }
+        boolean is_change = true;
+        boolean is_done = false;
+        while (is_change && !is_done) {
+            // 刷新
+            is_change = update_unknown_num();
 
+            /*
+              第二种推理方式
+              本方式共分3个步骤，是唯一可能性的方式
+              分别判断：行、列、宫
+            */
+            // 因为在刷新处已经进行了update操作，不用再进行update操作
 
-        return true;
-    }
+            // 判断行
+            for (int i=0; i<9; i++) {
+                for (char check='1'; check <= '9'; check++) {
+                    boolean is_first = false, is_second = false;
+                    char only_num = 0;
+                    int index = 0;
+                    for (int k=0; k < 9; k++) {
+                        if (numbers[i][k].contain(check)) {
+                            if (!is_first) {
+                                is_first = true;
+                                only_num = check;
+                                index = k;
+                            } else {
+                                is_second = true;
+                                break;
+                            }
+                        }
+                    }
 
-    // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
-    void update_unknown_num() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                // 获取行列的已知数字
-                for (int k = 0; k < 9; k++) {
-                    numbers[i][j].replace(numbers[i][k].getConfirm());
-                    numbers[i][j].replace(numbers[k][j].getConfirm());
+                    // 写入
+                    if (is_first && !is_second) {
+                        is_change = true;
+                        numbers[i][index].writeConfirm(only_num);
+                    }
                 }
+            }
 
-                // 获取宫的已知数字
-                for (int k = 0; k < 3; k++) {
-                    for (int l = 0; l < 3; l++) {
-                        // 其中的i-(i%3)之类的，是为了将基准点回溯到每一个宫的最左上角的点
-                        char remove_char = numbers[i - (i % 3) + k][j - (j % 3) + l].getConfirm();
-                        numbers[i][j].replace(remove_char);
+            // 判断列
+            update_unknown_num();
+            for (int i=0; i<9; i++) {
+                // 判断
+                for (char check='1'; check <= '9'; check++) {
+                    boolean is_first = false, is_second = false;
+                    char only_num = 0;
+                    int index = 0;
+                    for (int k=0; k < 9; k++) {
+                        if (numbers[k][i].contain(check)) {
+                            if (!is_first) {
+                                is_first = true;
+                                only_num = check;
+                                index = k;
+                            } else {
+                                is_second = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 写入
+                    if (is_first && !is_second) {
+                        is_change = true;
+                        numbers[index][i].writeConfirm(only_num);
+                    }
+                }
+            }
+
+            // 判断宫
+            update_unknown_num();
+            for (int i=0; i<=6; i+=3) {
+                for (int j=0; j<=6; j+=3) {
+                    // 判断
+                    boolean is_first = false, is_second = false;
+                    char only_num = 0;
+                    int[] cell_type = new int[2];
+                    for (char check='1'; check <= '9'; check++) {
+                        for (int l=0; l<3; l++) {
+                            for (int c=0; c<3; c++) {
+                                if (numbers[i+l][j+c].contain(check)) {
+                                    if (!is_first) {
+                                        is_first = true;
+                                        only_num = check;
+                                        cell_type[0] = i+l;
+                                        cell_type[1] = j+c;
+                                    } else is_second = true;
+                                }
+                            }
+                        }
+
+                        // 写入
+                        if (is_first && !is_second) {
+                            numbers[cell_type[0]][cell_type[1]].writeConfirm(only_num);
+                            is_change = true;
+                        }
+                    }
+                }
+            }
+
+            // 判断是否完成
+            is_done = true;
+            for (int i=0; i < 9; i++) {
+                for (int j=0; j < 9; j++) {
+                    if (numbers[i][j].isUnknown()) {
+                        is_done = false;
+                        break;    // 判断提前结束
                     }
                 }
             }
         }
+
+        return is_done;
+    }
+
+    // 刷新函数，用于推断一个指定格中行列宫中剩余的唯一余数
+    private boolean update_unknown_num() {
+        boolean changed = false;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                for (int k = 0; k < 9; k++) {
+                    changed = numbers[i][j].replace(numbers[i][k].getConfirm()) || changed;
+                    changed = numbers[i][j].replace(numbers[k][j].getConfirm()) || changed;
+                }
+
+                for (int k = 0; k < 3; k++) {
+                    for (int l = 0; l < 3; l++) {
+                        // 其中的i-(i%3)之类的，是为了将基准点回溯到每一个宫的最左上角的点
+                        char remove_char = numbers[i - (i % 3) + k][j - (j % 3) + l].getConfirm();
+                        changed = numbers[i][j].replace(remove_char) || changed;
+                    }
+                }
+            }
+        }
+
+        return changed;
     }
 }

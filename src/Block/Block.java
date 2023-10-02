@@ -28,10 +28,29 @@ public class Block {
         return !isConfirm();
     }
 
-    public void replace(Character replace_char) {
-        if (data.size() != 1) {      // 如果本格已经是唯一数了，就不接受任何数字的剔除了
-            data.remove(replace_char);
+    public boolean replace(Character replace_char) {
+        if (isUnknown()) {      // 如果本格已经是唯一数了，就不接受任何数字的剔除了
+            return data.remove(replace_char);
         }
+        return false;
+    }
+
+    public boolean contain(char check_char) {
+        // 如果存储的数据是Unknown状态的，才比较
+        if (isUnknown()) {
+            for (char temp:data) {
+                if (temp == check_char) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public void writeConfirm(char write_num) {
+        data.clear();
+        data.add(write_num);
     }
 
     public char getConfirm() {

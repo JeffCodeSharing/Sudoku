@@ -205,7 +205,7 @@ public class WinMain extends Application {
         }
     }
 
-    private void reload_numbers(Block[][] blocks) {
+    private void reload_numbers(Block[][] blocks) {   // 在完成自动运算之后对Label的覆盖
         for (int i=0; i<9; i++) {
             for (int j=0; j<9; j++) {
                 String text = blocks[i][j].getData();
