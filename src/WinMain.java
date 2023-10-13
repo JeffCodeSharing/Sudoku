@@ -3,6 +3,8 @@ import Generate.Generator;
 import Tool.IOTool;
 import Tool.WinTool;
 import Crack.Operation;
+import Update.CheckUpdate;
+import Update.Downloader;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,6 +25,17 @@ public class WinMain extends Application {
     
     @Override
     public void start(Stage stage) {
+        // 检查更新
+        // todo 添加一个提示
+        if (CheckUpdate.check()) {
+            // 更新并检查是否更新成功
+            if (Downloader.download()) {
+                WinTool.CreateAlert(Alert.AlertType.INFORMATION, "更新成功", "更新成功", "");
+            } else {
+                WinTool.CreateAlert(Alert.AlertType.ERROR, "更新失败", "更新失败了，请重新尝试", "");
+            }
+        }
+        
         Group group = new Group();
         Scene scene = new Scene(group);
 
